@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+    <head>
+        <title>uhack u</title>
+        <style>
+            body{
+                display:flex;
+                flex-direction:row;
+                align-items: center;
+                justify-content: center;
+                text-align:center;
+                font-size:16px;
+            }
+
+            form{
+                display:flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width:30%;
+                min-width: 30%;
+            }
+
+            label{  
+                margin:10px;
+            }
+
+            input {
+                padding:2%;
+            }
+            button {
+                padding:2%;
+                margin-top:10px;
+                background-color:mediumseagreen;
+                color:#fff;
+            }
+        </style>
+    </head>
+    <body>
+        <form>
+            <h1>WebSite Loader</h1>
+        <label for="website">Enter website</label>
+        <input type="text" id="website" name="website" size="50" placeholder="www.example.com">
+        <button onclick="hackJava()">Start Java Hacking</button>
+        </form>
+    </body>
+    <script>
+
+        /**
+         * uses window.location to load any web page
+         */
+        function hackJava(){
+            console.log("button clicked");
+            console.log(window.location.href);
+            //var website = document.getElementById("website").value();
+            //console.log("loading webpage " + website);
+            window.location.assign("https://uhacku.herokuapp.com");
+        }
+    </script>
+</html>
