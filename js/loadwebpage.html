@@ -37,11 +37,11 @@
         </style>
     </head>
     <body>
-        <form>
+        <form name="webform">
             <h1>WebSite Loader</h1>
         <label for="website">Enter website</label>
         <input type="text" id="website" name="website" size="50" placeholder="www.example.com">
-        <button onclick="hackJava()">Start Java Hacking</button>
+        <button type="button" onclick="hackJava()">Launch Websites</button>
         </form>
     </body>
     <script>
@@ -52,9 +52,10 @@
         function hackJava(){
             console.log("button clicked");
             console.log(window.location.href);
-            //var website = document.getElementById("website").value();
-            //console.log("loading webpage " + website);
-            window.location.assign("https://uhacku.herokuapp.com");
+           // var website = document.getElementById("website").innerText;
+            var x = document.forms["webform"]["website"].value;
+            console.log("loading webpage " + x);
+           window.location.assign(x);
         }
     </script>
 </html>

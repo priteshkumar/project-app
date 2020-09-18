@@ -91,3 +91,6 @@ function testTernaryop(){
 }
 
 testTernaryop();
+
+var text = "";
+console.log(text.length);

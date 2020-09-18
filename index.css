@@ -1,0 +1,45 @@
+
+body {
+   font-family: sans-serif;
+   margin:0;
+}
+header{
+   padding: 1%;
+   background-color: #186CA3;
+   color: white;
+   }
+.container{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+.menu-block{
+    width:20%;
+    background-color:grey;
+    padding:5%;
+    color:white;
+    height:100vh;
+}
+.board-container{
+    width:80%;
+    padding: 2%;
+}
+input{
+   padding: 1%;
+   border: 1px solid;
+   width:82%;
+   font-size:90%;
+}
+#add-board-btn{
+   background-color: green;
+   color: white;
+   padding:10px 25px 10px 25px;
+   border:0;
+   margin-right:30px;
+}
+.input-board{
+   display:flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+/*Add your code here

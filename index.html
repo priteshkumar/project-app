@@ -1,23 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-    <head>
-         <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Login</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" media="screen" href="./styles/index.css" />
-    </head>
-    <body>
-        <div class="container">
-            <h1 style="text-align: center;">Log in <a href="./html/sign-up.html">or Sign up</a>
-            </h1>
-        <form>
-            <label for="username">Username</label>
-            <input type="email" id="username" name="username" placeholder="me@example.com">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="eg., ***********">
-            <button class="Sub-button">Login</button>
-        </form>
-        </div>
-    </body>
+
+<head>
+   <meta charset="utf-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <title>Home page</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" type="text/css" media="screen" href="index.css" />
+   <link rel="stylesheet" type="text/css" media="screen" href="home.css" />
+</head>
+
+<body>
+   <header>
+       <span onclick="togglemenu()">&#9776;</span>
+       Project Management App
+   </header>
+   <div class="container">
+       <div class="menu-block">Menu</div>
+       <div class="board-container">
+           <div class="add-board-block">
+               <div class="input-board">
+               <input type="text" id="board-input" value="" placeholder="eg., enter new board here">
+               <button id="add-board-btn" onclick="addBoard()">Add Board</button>
+           </div>
+               <div id="boardlist"></div>
+               <section>
+                   <div class="board-header">Board1 Projects<button class="remove-board" onclick="removeProjects()">Remove Projects</button></div>
+                       <div class="project-block" id="projectlist_1">
+                           <div class="project-card">
+                               <span>Project One</span>
+                               <ul>
+                                   <li>Task One</li>
+                                   <li>Task Two</li>
+                               </ul>
+                           </div>
+                           <div class="project-card">
+                               <span>Project Two</span>
+                               <ul>
+                                   <li>Task One</li>
+                                   <li>Task Two</li>
+                               </ul>
+                           </div>
+                       </div>
+               </section>
+           </div>
+       </div>
+   </div>
+   <script src="./js/home.js"></script>
+</body>
 </html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>   
+   <title>Selectors in Javascript</title>   
+</head>
+<body>
+   <h1>Hello this is a sample web page</h1>       
+       <p class="customPara">This is the HTML first paragraph</p>
+       <p class="customPara">This is the HTML second paragraph</p>
+<script>
+/*Insert your code here*/
+document.getElementsByTagName('h1')[0].innerHTML = "Hello this is my JavaScript page";
+var paras = document.getElementsByClassName('customPara');
+var ranks = ["first","second"];
+var index = 0;
+for(para of paras){
+    para.innerText = "This is the JavaScript " + ranks[index] + " paragraph";
+    index = index + 1;
+}
+</script>
+</body>
+
+ </html>
