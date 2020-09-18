@@ -16,10 +16,18 @@ header{
 .menu-block{
     width:20%;
     background-color:grey;
-    padding:5%;
     color:white;
     height:100vh;
 }
+
+.menu-item{
+   width:100%;
+   padding:5%;
+   border-top:1px solid white;
+   border-bottom: 1px solid white;
+   font-size:100%;
+}
+
 .board-container{
     width:80%;
     padding: 2%;

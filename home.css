@@ -18,6 +18,10 @@ section{
     margin-left:auto;
 }
 
+.board-block{
+    display:none;
+}
+
 .project-block{
     display:flex;
     flex-direction:row;
