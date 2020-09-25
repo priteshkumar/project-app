@@ -1,4 +1,7 @@
 //window.alert("JS INTO SECTION");
+var timestamp = new Date().getTime();
+console.log(timestamp.toString());
+console.log("username" + timestamp);
 
 function sum(x,y){
     return x + y;
@@ -37,6 +40,7 @@ function testTypeCoercion(){
     console.log(5 + null);
     console.log(true + 5);
     console.log(+ "123");//unary operator on string converts into number
+   
 }
 
 testTypeCoercion();
