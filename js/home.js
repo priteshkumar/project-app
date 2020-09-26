@@ -1,3 +1,4 @@
+
 var projectList = [
     {"name" : "Java One"},
     {"name" : "Golang Two"},
@@ -20,38 +21,74 @@ function togglemenu(){
 
 function loadMenu(boardElement){
     console.log("load menu clicked " + boardElement.id);
-    boardElement.style.display = 'block';
+    //console.log(boardElement.getAttribute('data-uid'));
+    showProjects(boardElement);
+    //boardElement.style.display = 'block';
 }
 
-function updateMenu(board,databoard){
- var menublock = document.getElementsByClassName("menu-block")[0];
- var boarditem = '<div ' + 'class=menu-item ' + 'data-board=' + databoard + ' onclick="loadMenu(' + databoard + ')">' + board + '</div>';
- if(menublock.innerHTML == "Menu"){
-     menublock.innerHTML = boarditem;
- }
- else{
-     menublock.innerHTML += boarditem;
- }
-}
-
-function showProjects(boardId){
-
-    //var projectBlock = document.getElementsByClassName("project-block")[0];
-    var projectBlock = "";
-    if(boardId){
-        projectBlock = document.getElementById(boardId);
+function updateMenu(board,databoard,board_id){
+    console.log("update menu");
+    var menublock = document.getElementsByClassName("menu-block")[0];
+    var boarditem = '<div ' + 'class=menu-item ' + 'data-board=' + databoard  +  ' onclick="loadMenu(' + databoard + ')">' + board + '</div>';
+    if(menublock.innerHTML == "Menu"){
+        menublock.innerHTML = boarditem;
     }
-  
-    projectList.forEach(function(project){
-        var template = '<div class="project-card">' + 
-        '<span>' + project.name + '</span>' +
-        '<ul>' + 
-            '<li>Task One</li>' + 
-            '<li>Task Two</li>' +
-        '</ul>' +
-        '</div>';
-        projectBlock.innerHTML += template;
-    });
+    else{
+        menublock.innerHTML += boarditem;
+    }
+}
+
+/*
+function getBoardProjects(board_id){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET',boardUrl + '/' + board_id + '/projects');
+    xhr.setRequestHeader('authorization','Bearer ' + sessionStorage.getItem('access-token'));
+    xhr.send();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            //console.log(xhr.responseText);
+            var result = JSON.parse(xhr.responseText);
+            //console.log(result.projects);
+            return result.projects;
+        }
+    }
+}*/
+
+
+
+function showProjects(boardElement){
+
+    //console.log(boardElement.data-uid);
+    var id = boardElement.getAttribute('data-uid');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET',boardUrl + '/' + id + '/projects');
+    xhr.setRequestHeader('authorization','Bearer ' + sessionStorage.getItem('access-token'));
+    xhr.send();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            var result = JSON.parse(xhr.responseText);
+            console.log(result.projects);
+            var projects = result.projects;
+            var projectBlock = "";
+            var boardId = boardElement.id;
+            if(boardId){
+                projectBlock = document.getElementById(boardId);
+            }
+
+            projects.forEach(function(project){
+                var template = '<div class="project-card">' + 
+                '<span>' + project.name + '</span>' +
+                '<ul>' + 
+                    '<li>Task One</li>' + 
+                    '<li>Task Two</li>' +
+                '</ul>' +
+                '</div>';
+                projectBlock.innerHTML += template;
+            });
+            boardElement.style.display = 'block';
+        }
+    };
 }
 
 function removeProjects(){
@@ -64,20 +101,20 @@ function removeProjects(){
 
 //showProjects();
 
-function addBoard(board,status){
+function addBoard(board,id,status){
     //var board = document.getElementById("board-input").value;
     boardIndex++;
     var boardId = 'projectlist_' + boardIndex;
     var databoard = "board_" + boardIndex;
-    var template = '<section class="board-block" ' +'id=' + databoard + '><div class="board-header">'
+    var template = '<section class="board-block" ' +'id=' + databoard + ' data-uid=' + id + '><div class="board-header">'
                     + board + '<button class="remove-board">Remove Projects</button></div>'
                     +  '<div class="project-block"' + 'id=' + boardId + '></div>'
                     + '</section>';
     document.getElementById("boardlist").innerHTML += template;
-    updateMenu(board,databoard);
+    updateMenu(board,databoard,id);
     var removeButton = document.getElementById(boardId).parentElement.querySelectorAll(".remove-board")[0];
     removeButton.addEventListener("click",removeProjects);
-    showProjects(boardId);
+    //showProjects(boardId,id);
 }
 
 function addBoardFunc(){
@@ -100,7 +137,7 @@ function addBoardFunc(){
             console.log(xhr.responseText);
             //var appendMode = true;
             var boardDetail = JSON.parse(xhr.responseText);
-            addBoard(board,boardDetail.status);
+            addBoard(board,boardDetail.id,boardDetail.status);
             
         }
     };
@@ -125,7 +162,7 @@ function getAllBoards(){
             var result = JSON.parse(xhr.responseText);
             var boards = result.boards;
             boards.forEach(function(board){
-                addBoard(board.name,board.status);
+                addBoard(board.name,board.id,board.status);
             });
         }
     };

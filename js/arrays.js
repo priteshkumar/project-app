@@ -15,3 +15,12 @@ citools.push("chef");
 console.log(citools);
 citools.splice(2);
 console.log(citools);
+
+
+function testArray(){
+    var test = [1,2,3];
+    return test;
+}
+
+var a = testArray();
+console.log(a);
