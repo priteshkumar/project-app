@@ -19,7 +19,8 @@ function togglemenu(){
     }
 }
 
-function loadMenu(boardElement){
+function loadMenu(boardElement,board_id){
+    console.log(typeof board_id);
     console.log("load menu clicked " + boardElement.id);
     //console.log(boardElement.getAttribute('data-uid'));
     showProjects(boardElement);
@@ -29,7 +30,7 @@ function loadMenu(boardElement){
 function updateMenu(board,databoard,board_id){
     console.log("update menu");
     var menublock = document.getElementsByClassName("menu-block")[0];
-    var boarditem = '<div ' + 'class=menu-item ' + 'data-board=' + databoard  +  ' onclick="loadMenu(' + databoard + ')">' + board + '</div>';
+    var boarditem = '<div ' + 'class=menu-item ' + 'data-board=' + databoard  +  ' onclick="loadMenu(' + databoard + ','+ `${board_id}` + ')">' + board + '</div>';
     if(menublock.innerHTML == "Menu"){
         menublock.innerHTML = boarditem;
     }

@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+    <body>
+        <div id="test"></div>
+    </body>
+    <script>
+        var val = "jenkins";
+        var template = '<button onclick=doclick("' + val + '")>' + '</button>';
+        document.getElementById('test').innerHTML += template;
+    
+        function doclick(val){
+            console.log(val);
+        }
+    </script>
+</html>
