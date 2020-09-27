@@ -19,8 +19,7 @@ function togglemenu(){
     }
 }
 
-function loadMenu(boardElement,board_id){
-    console.log(typeof board_id);
+function loadMenu(boardElement){
     console.log("load menu clicked " + boardElement.id);
     //console.log(boardElement.getAttribute('data-uid'));
     showProjects(boardElement);
@@ -30,13 +29,22 @@ function loadMenu(boardElement,board_id){
 function updateMenu(board,databoard,board_id){
     console.log("update menu");
     var menublock = document.getElementsByClassName("menu-block")[0];
-    var boarditem = '<div ' + 'class=menu-item ' + 'data-board=' + databoard  +  ' onclick="loadMenu(' + databoard + ','+ `${board_id}` + ')">' + board + '</div>';
+    var boarditem = '<div ' + 'class=menu-item ' + 'data-uid=' + board_id  +  ' onclick="loadMenu(' + databoard + ')">' + board + '</div>';
     if(menublock.innerHTML == "Menu"){
         menublock.innerHTML = boarditem;
     }
     else{
         menublock.innerHTML += boarditem;
     }
+}
+
+function removeFromMenu(board_id){
+    var menublock = document.getElementsByClassName("menu-block")[0];
+    //var uid = boardElement.getAttribute('data-uid');
+    console.log('delete menu item with uid ' + board_id);
+    var menuItem = menublock.querySelectorAll("div[data-uid='"+board_id+"']")[0];
+    console.log(menuItem);
+    menuItem.remove();
 }
 
 /*
@@ -92,12 +100,24 @@ function showProjects(boardElement){
     };
 }
 
-function removeProjects(){
-    console.log(this);
-    var boardSection = this.parentElement.parentElement; 
-    console.log(boardSection);
-    document.getElementById("boardlist").removeChild(boardSection);
-    
+function removeProjects(e,removeBtn){
+    e.stopPropagation();
+    //console.log(removeBtn);
+    var boardSection = removeBtn.parentElement.parentElement;
+    var board_id = boardSection.getAttribute('data-uid');
+    console.log(board_id);
+    var xhr = new XMLHttpRequest();
+    xhr.open('DELETE',boardUrl + '/' + board_id);
+    xhr.setRequestHeader('authorization','Bearer ' + sessionStorage.getItem('access-token'));
+    xhr.send();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            console.log(xhr.responseText);
+            boardSection.remove();
+            removeFromMenu(board_id);
+        }
+    };
+
 }
 
 //showProjects();
@@ -108,13 +128,18 @@ function addBoard(board,id,status){
     var boardId = 'projectlist_' + boardIndex;
     var databoard = "board_" + boardIndex;
     var template = '<section class="board-block" ' +'id=' + databoard + ' data-uid=' + id + '><div class="board-header">'
-                    + board + '<button class="remove-board">Remove Projects</button></div>'
+                    + board + '<button class="remove-board" onclick="removeProjects(event,this)">Remove Projects</button></div>'
                     +  '<div class="project-block"' + 'id=' + boardId + '></div>'
                     + '</section>';
     document.getElementById("boardlist").innerHTML += template;
     updateMenu(board,databoard,id);
-    var removeButton = document.getElementById(boardId).parentElement.querySelectorAll(".remove-board")[0];
-    removeButton.addEventListener("click",removeProjects);
+    
+    //debug this later TODO
+    //var section = document.getElementById(databoard);
+    //var removeButton = section.querySelectorAll(".remove-board")[0];
+    //console.log(removeButton.parentElement.parentElement);
+    //removeButton.addEventListener("click",removeProjects);
+    //console.log(removeButton);
     //showProjects(boardId,id);
 }
 
